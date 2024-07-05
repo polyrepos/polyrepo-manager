@@ -1,5 +1,5 @@
 {
-  "name": "@polyrepo/polyrepo-scripts",
+  "name": "@polyrepo/polyrepo-manager",
   "description": "Scripts for managing polyrepo projects",
   "module": "src/index.ts",
   "type": "module",
