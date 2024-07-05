@@ -14,7 +14,7 @@
     ]
   },
   "scripts": {
-    "copy": "bun run src/copys.ts",
+    "copy": "bun run src/copy.ts",
     "installs": "bun run src/installs.ts"
   },
   "devDependencies": {
