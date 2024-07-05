@@ -1,0 +1,30 @@
+{
+  "name": "@polyrepo/polyrepo-scripts",
+  "description": "Scripts for managing polyrepo projects",
+  "module": "index.ts",
+  "type": "module",
+  "polyCopy": {
+    "@polyrepo/template-bun": [
+      "LICENSE",
+      ".gitignore",
+      "biome.json",
+      ".husky",
+      "tsconfig.json",
+      "tsconfig.ci.json"
+    ]
+  },
+  "scripts": {
+    "copy": "bun run src/copys.ts",
+    "installs": "bun run src/installs.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.5.3"
+  },
+  "dependencies": {
+    "@polyrepo/env": "latest",
+    "dotenv": "^16.4.5"
+  }
+}
