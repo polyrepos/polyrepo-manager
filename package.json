@@ -1,7 +1,7 @@
 {
   "name": "@polyrepo/polyrepo-scripts",
   "description": "Scripts for managing polyrepo projects",
-  "module": "index.ts",
+  "module": "src/index.ts",
   "type": "module",
   "polyCopy": {
     "@polyrepo/template-bun": [
