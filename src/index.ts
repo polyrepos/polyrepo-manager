@@ -1,4 +1,5 @@
 import { Command } from "commander";
+import { changes } from "./actions/changes";
 import { clone } from "./actions/clone";
 import { copy } from "./actions/copy";
 import { run } from "./actions/run";
@@ -20,16 +21,14 @@ program
 	.command("run [args...]")
 	.description("In all workspace run command")
 	.action((args) => {
-		run(allDirs, args);
+		run(allDirs, args.join(" "));
 	});
 
 program
 	.command("changes [args...]")
 	.description("Run all workspace has uncommitted dir")
 	.action(async (args) => {
-		const uncommittedDirs: WorkspaceItem[] =
-			await filterUncommittedDirs(allDirs);
-		run(uncommittedDirs, args);
+		changes(allDirs, args.join(" "));
 	});
 
 program

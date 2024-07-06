@@ -43,13 +43,10 @@ export function runCommandInDir(dir: string, argsString: string, padEnd = 18) {
 	});
 }
 
-export async function run(dirs: WorkspaceItem[], args: string[]) {
+export async function run(dirs: WorkspaceItem[], args: string) {
 	const padEnd = dirs.reduce((max, item) => {
 		return Math.max(max, path.basename(item.dir).length);
 	}, 0);
-	const argString = args.join(" ");
-	const promises = dirs.map((item) =>
-		runCommandInDir(item.dir, argString, padEnd),
-	);
+	const promises = dirs.map((item) => runCommandInDir(item.dir, args, padEnd));
 	await Promise.allSettled(promises);
 }
