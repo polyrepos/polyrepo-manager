@@ -1,20 +1,29 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { getWorkspaceDir } from "./get-workspace-dir";
+import { getWorkspaceConfig, getWorkspaceDir } from "./get-workspace-dir";
 
 export interface WorkspaceItem {
 	name: string;
 	dir: string;
-	package: Record<string, unknown>;
-	polyCopy: Record<string, string[]>;
+	packagePath: string;
 }
 
 function findFirstLevelDirs(): WorkspaceItem[] {
 	const dirs: WorkspaceItem[] = [];
 	const workspaceDir = getWorkspaceDir();
-	const files = fs.readdirSync(workspaceDir);
-	for (const file of files) {
-		const theDir = path.join(workspaceDir, file);
+	const config = getWorkspaceConfig();
+	const files: string[] = [];
+	for (const repo of config.repos) {
+		const cleanUrl = repo.split("?")[0];
+		// 分割路径并获取最后一部分
+		const parts = cleanUrl.split("/");
+		const theDir = path.resolve(workspaceDir, parts[parts.length - 1]);
+		if (fs.existsSync(theDir)) {
+			files.push(theDir);
+		}
+	}
+
+	for (const theDir of files) {
 		if (fs.lstatSync(theDir).isSymbolicLink()) {
 			continue;
 		}
@@ -28,8 +37,7 @@ function findFirstLevelDirs(): WorkspaceItem[] {
 			dirs.push({
 				name: packageJson.name,
 				dir: theDir,
-				polyCopy: packageJson.polyCopy,
-				package: packageJson,
+				packagePath: path.join(theDir, "package.json"),
 			});
 		}
 	}

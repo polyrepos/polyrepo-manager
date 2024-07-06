@@ -1,21 +1,25 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
+import chalk from "chalk";
+import { getWorkspaceDir } from "../utils/get-workspace-dir";
 import { allDirs, allDirsMap } from "../utils/workspaces";
 
 // 定义要链接的文件和目录
 export function copy() {
 	for (const targetDir of allDirs) {
-		if (!targetDir.polyCopy) {
+		const pkg = JSON.parse(fs.readFileSync(targetDir.packagePath).toString());
+		if (!pkg.polyCopy) {
 			continue;
 		}
 		if (!fs.existsSync(targetDir.dir)) {
 			fs.mkdirSync(targetDir.dir, { recursive: true });
 		}
-		const keys = Object.keys(targetDir.polyCopy);
+		const rootDir = getWorkspaceDir();
+		const keys = Object.keys(pkg.polyCopy);
 		for (const packageName of keys) {
 			const item = allDirsMap[packageName];
 			if (allDirsMap[packageName]) {
-				for (const file of targetDir.polyCopy[packageName]) {
+				for (const file of pkg.polyCopy[packageName]) {
 					const sourcePath = path.resolve(item.dir, file);
 					const targetPath = path.resolve(targetDir.dir, file);
 					try {
@@ -26,13 +30,17 @@ export function copy() {
 					}
 					if (fs.existsSync(sourcePath)) {
 						fs.cpSync(sourcePath, targetPath, { recursive: true, force: true });
-						console.log(`Linked ${sourcePath} -> ${targetPath}`);
+						console.log(
+							`Linked ${sourcePath.replace(rootDir, "").padEnd(40)} -> ${targetPath.replace(rootDir, "")}`,
+						);
 					} else {
-						console.error(`Source file does not exist: ${sourcePath}`);
+						console.error(
+							`Source file does not exist: ${sourcePath.replace(rootDir, "")}`,
+						);
 					}
 				}
 			}
 		}
-		console.log("Polyrepo manage copy done.");
 	}
+	console.log(chalk.green("✓ Polyrepo manage copy done."));
 }

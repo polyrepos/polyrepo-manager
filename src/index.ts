@@ -1,8 +1,10 @@
 import { Command } from "commander";
+import { clone } from "./actions/clone";
 import { copy } from "./actions/copy";
 import { run } from "./actions/run";
 import { updateVersion } from "./actions/update-version";
-import { allDirs } from "./utils/workspaces";
+import { filterUncommittedDirs } from "./utils/filter-uncommitted-dirs";
+import { type WorkspaceItem, allDirs } from "./utils/workspaces";
 const program = new Command();
 
 program
@@ -22,10 +24,26 @@ program
 	});
 
 program
+	.command("changes [args...]")
+	.description("Run all workspace has uncommitted dir")
+	.action(async (args) => {
+		const uncommittedDirs: WorkspaceItem[] =
+			await filterUncommittedDirs(allDirs);
+		run(uncommittedDirs, args);
+	});
+
+program
 	.command("update")
 	.description("Update all workspace dependencies version")
 	.action(() => {
 		updateVersion();
+	});
+
+program
+	.command("clone")
+	.description("Clone all repos in workspace")
+	.action(() => {
+		clone();
 	});
 
 program.parse(process.argv);

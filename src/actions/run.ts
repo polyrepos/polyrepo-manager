@@ -3,7 +3,8 @@ import * as path from "node:path";
 import chalk from "chalk";
 import type { WorkspaceItem } from "../utils/workspaces";
 
-function runCommandInDir(dir: string, args: string[], padEnd: number) {
+export function runCommandInDir(dir: string, argsString: string, padEnd = 18) {
+	const args = argsString.split(" ");
 	return new Promise((resolve, reject) => {
 		const command = args[0];
 		const commandArgs = args.slice(1);
@@ -46,6 +47,9 @@ export async function run(dirs: WorkspaceItem[], args: string[]) {
 	const padEnd = dirs.reduce((max, item) => {
 		return Math.max(max, path.basename(item.dir).length);
 	}, 0);
-	const promises = dirs.map((item) => runCommandInDir(item.dir, args, padEnd));
+	const argString = args.join(" ");
+	const promises = dirs.map((item) =>
+		runCommandInDir(item.dir, argString, padEnd),
+	);
 	await Promise.allSettled(promises);
 }

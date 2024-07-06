@@ -65,3 +65,21 @@ After setting up, run this script:
 ```sh
 poly copy
 ```
+
+### Command Descriptions
+
+`poly copy`
+
+The copy command is used to copy a file from a source path to a destination path. The specific implementation depends on the ./actions/copy module.
+
+`poly update`
+
+The update command is used to update the dependencies version in all workspaces. The specific implementation depends on the ./actions/update-version module.
+
+`poly run [args...]`
+
+The run command will execute the specified command in all workspaces. For example, running node cli.js run ls will execute the ls command in all workspace directories.
+
+`poly changes [args...]`
+
+The changes command will execute the specified command in all workspaces that have uncommitted changes. For example, running node cli.js changes git status will execute the git status command in all workspace directories with uncommitted changes.
