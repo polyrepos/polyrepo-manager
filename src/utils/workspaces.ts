@@ -6,6 +6,7 @@ import { getWorkspaceDir } from "./get-workspace-dir";
 interface Item {
 	name: string;
 	dir: string;
+	package: Record<string, unknown>;
 	polyCopy: Record<string, string[]>;
 }
 
@@ -29,6 +30,7 @@ function findFirstLevelDirs(): Item[] {
 				name: packageJson.name,
 				dir: theDir,
 				polyCopy: packageJson.polyCopy,
+				package: packageJson,
 			});
 		}
 	}

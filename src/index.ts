@@ -1,4 +1,7 @@
 import { Command } from "commander";
+import { copy } from "./actions/copy";
+import { run } from "./actions/run";
+import { updateVersion } from "./actions/update-version";
 const program = new Command();
 
 program
@@ -7,21 +10,21 @@ program
 	.command("copy")
 	.description("Copy a file from source to destination")
 	.action(() => {
-		import("./copy");
+		copy();
 	});
 
 program
-	.command("install")
-	.description("Install all workspace dependencies")
-	.action(() => {
-		import("./install");
+	.command("run [args...]")
+	.description("In all workspace run command")
+	.action((args) => {
+		run(...args);
 	});
 
 program
-	.command("deps")
-	.description("Update all workspace deps and install")
+	.command("update")
+	.description("Update all workspace dependencies version")
 	.action(() => {
-		import("./deps");
+		updateVersion();
 	});
 
 program.parse(process.argv);

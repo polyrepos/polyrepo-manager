@@ -3,6 +3,7 @@
   "description": "Scripts for managing polyrepo projects",
   "module": "src/index.ts",
   "type": "module",
+  "version": "1.0.0",
   "main": "./dist/index.cjs",
   "types": "./dist/index.d.ts",
   "files": [
@@ -41,15 +42,9 @@
     "typescript": "^5.5.3"
   },
   "dependencies": {
-    "@polyrepo/env": "latest",
-<<<<<<< HEAD
-    "dotenv": "^16.4.5"
-  },
-  "version": "1.0.0"
-=======
+    "@polyrepo/env": "1.0.0",
     "commander": "^12.1.0",
     "dotenv": "^16.4.5",
     "zx": "^8.1.4"
   }
->>>>>>> 90fd652 (feat: add bin)
 }
