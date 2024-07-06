@@ -33,4 +33,5 @@ for (const targetDir of allDirs) {
 			}
 		}
 	}
+	console.log("Polyrepo manage copy done.");
 }

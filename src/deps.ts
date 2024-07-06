@@ -1,4 +1,4 @@
-import { $ } from "bun";
+import { $ } from "zx";
 import { allDirs } from "./workspaces";
 
 async function start() {

@@ -1,6 +1,7 @@
-import * as fs from "fs";
-import * as path from "path";
+import * as fs from "node:fs";
+import * as path from "node:path";
 import { env } from "@polyrepo/env";
+import { getWorkspaceDir } from "./get-workspace-dir";
 
 interface Item {
 	name: string;
@@ -10,7 +11,7 @@ interface Item {
 
 function findFirstLevelDirs(): Item[] {
 	const dirs: Item[] = [];
-	const workspaceDir = env("LINK_WORKSPACE") || "";
+	const workspaceDir = getWorkspaceDir();
 	const files = fs.readdirSync(workspaceDir);
 	for (const file of files) {
 		const theDir = path.join(workspaceDir, file);
