@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.0](https://github.com/polyrepos/polyrepo-manager/compare/v1.0.0...v1.1.0) (2024-07-06)
+
+
+### Features
+
+* add bin ([f5af958](https://github.com/polyrepos/polyrepo-manager/commit/f5af9582a3c225b1cc22d4f6e31e11728f061784))
+* add update action ([44a676e](https://github.com/polyrepos/polyrepo-manager/commit/44a676efbaa5b18a25a99fa10adfc1ff76c5037d))
+
+
+### Bug Fixes
+
+* refactor files ([5ce3039](https://github.com/polyrepos/polyrepo-manager/commit/5ce3039e10cd6f63e17856628406f7af5bfa4b89))
+
 ## 1.0.0 (2024-07-05)
 
 
