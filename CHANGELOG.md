@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/polyrepos/polyrepo-manager/compare/v1.1.0...v1.1.1) (2024-07-06)
+
+
+### Bug Fixes
+
+* add unit test ([0439e6b](https://github.com/polyrepos/polyrepo-manager/commit/0439e6b6480a8e54a998bb927a18ee68b4cc2f83))
+
 ## [1.1.0](https://github.com/polyrepos/polyrepo-manager/compare/v1.0.0...v1.1.0) (2024-07-06)
 
 
