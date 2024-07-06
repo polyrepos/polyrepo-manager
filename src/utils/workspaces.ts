@@ -1,17 +1,16 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { env } from "@polyrepo/env";
 import { getWorkspaceDir } from "./get-workspace-dir";
 
-interface Item {
+export interface WorkspaceItem {
 	name: string;
 	dir: string;
 	package: Record<string, unknown>;
 	polyCopy: Record<string, string[]>;
 }
 
-function findFirstLevelDirs(): Item[] {
-	const dirs: Item[] = [];
+function findFirstLevelDirs(): WorkspaceItem[] {
+	const dirs: WorkspaceItem[] = [];
 	const workspaceDir = getWorkspaceDir();
 	const files = fs.readdirSync(workspaceDir);
 	for (const file of files) {
@@ -42,5 +41,5 @@ export const allDirsMap = allDirs.reduce(
 		acc[cur.name] = cur;
 		return acc;
 	},
-	{} as Record<string, Item>,
+	{} as Record<string, WorkspaceItem>,
 );
