@@ -4,7 +4,6 @@ import chalk from "chalk";
 import { getWorkspaceDir } from "../utils/get-workspace-dir";
 import { allDirs, allDirsMap } from "../utils/workspaces";
 
-// 定义要链接的文件和目录
 export function copy() {
 	for (const targetDir of allDirs) {
 		const pkg = JSON.parse(fs.readFileSync(targetDir.packagePath).toString());
