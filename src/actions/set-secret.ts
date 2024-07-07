@@ -10,9 +10,16 @@ export async function setSecret(
 	const config = getWorkspaceConfig();
 	for (const dir of dirs) {
 		console.log("Setting secret for repository:", dir.repoName);
-		await runCommandInDir(
-			dir.dir,
-			`gh secret set ${key} --body "${value}" --repo ${config.github.username}/${dir.repoName}`,
-		);
+		try {
+			await runCommandInDir(
+				dir.dir,
+				`gh secret set ${key} --body "${value}" --repo ${config.github.username}/${dir.repoName}`,
+			);
+		} catch (error) {
+			console.error(
+				`Failed to set secret for repository: ${dir.repoName}`,
+				error,
+			);
+		}
 	}
 }

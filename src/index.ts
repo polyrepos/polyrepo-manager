@@ -2,6 +2,7 @@ import { Command } from "commander";
 import { changed } from "./actions/changed";
 import { clone } from "./actions/clone";
 import { copy } from "./actions/copy";
+import { pr } from "./actions/pr";
 import { run } from "./actions/run";
 import { setSecret } from "./actions/set-secret";
 import { unChanged } from "./actions/unchanged";
@@ -44,6 +45,13 @@ program
 	.description("Run all workspace has uncommitted dir")
 	.action(async (key, value) => {
 		setSecret(allDirs, key, value);
+	});
+
+program
+	.command("pr <event> <matchTitle>")
+	.description("merge pr, like: poly pr squash 'chore(main): release'")
+	.action(async (event, matchTitle) => {
+		pr(allDirs, event, matchTitle);
 	});
 
 program
