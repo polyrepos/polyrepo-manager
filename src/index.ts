@@ -1,11 +1,11 @@
 import { Command } from "commander";
-import { changes } from "./actions/changes";
+import { changes } from "./actions/changed";
 import { clone } from "./actions/clone";
 import { copy } from "./actions/copy";
 import { run } from "./actions/run";
+import { unChanges } from "./actions/unchanged";
 import { updateVersion } from "./actions/update-version";
-import { filterUncommittedDirs } from "./utils/filter-uncommitted-dirs";
-import { type WorkspaceItem, allDirs } from "./utils/workspaces";
+import { allDirs } from "./utils/workspaces";
 const program = new Command();
 
 program
@@ -25,10 +25,17 @@ program
 	});
 
 program
-	.command("changes <args>")
+	.command("changed <args>")
 	.description("Run all workspace has uncommitted dir")
 	.action(async (args) => {
 		changes(allDirs, args);
+	});
+
+program
+	.command("unchanged <args>")
+	.description("Run all workspace has uncommitted dir")
+	.action(async (args) => {
+		unChanges(allDirs, args);
 	});
 
 program

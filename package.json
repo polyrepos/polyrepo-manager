@@ -19,6 +19,7 @@
   },
   "polyCopy": {
     "@polyrepo/template-base": [
+      "package.json.merge",
       ".github",
       "LICENSE",
       ".gitignore",

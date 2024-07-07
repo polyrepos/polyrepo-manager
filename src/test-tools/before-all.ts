@@ -1,11 +1,27 @@
-import { beforeAll } from "bun:test";
+import { beforeAll, beforeEach } from "bun:test";
 import * as fs from "node:fs";
 import * as path from "node:path";
+import { config } from "dotenv";
 import { clone } from "../actions/clone";
 import { workspaceData } from "../utils/get-workspace-dir";
 
+config();
+
 export const testPath = (...args: string[]) =>
-	path.resolve(process.cwd(), "test-temp", ...args);
+	path.resolve(
+		process.env.TEST_WORKSPACE || process.cwd(),
+		"test-temp",
+		...args,
+	);
+
+beforeEach(() => {
+	for (const file of ["a.text", "text2.txt", "changed.txt", "unchanged.txt"]) {
+		try {
+			fs.rmSync(testPath("env", file));
+			fs.rmSync(testPath("template.base", file));
+		} catch (_) {}
+	}
+});
 
 beforeAll(async () => {
 	workspaceData.workspaceDir = testPath("");
