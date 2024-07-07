@@ -1,6 +1,7 @@
 {
   "name": "@polyrepo/polyrepo-manager",
   "description": "Scripts for managing polyrepo projects",
+  "private": false,
   "module": "src/index.ts",
   "type": "module",
   "version": "1.1.1",
@@ -17,7 +18,7 @@
     }
   },
   "polyCopy": {
-    "@polyrepo/template-bun": [
+    "@polyrepo/template-base": [
       ".github",
       "LICENSE",
       ".gitignore",

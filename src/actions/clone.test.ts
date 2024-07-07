@@ -3,7 +3,7 @@ import * as fs from "node:fs";
 import { testPath } from "../test-tools/before-all";
 
 test("clone", async () => {
-	for (const dir of ["env", "template-bun"]) {
+	for (const dir of ["env", "template-base"]) {
 		expect(fs.existsSync(testPath(dir))).toBe(true);
 	}
 });

@@ -17,7 +17,7 @@ beforeAll(async () => {
 			{
 				repos: [
 					"https://github.com/polyrepos/env",
-					"https://github.com/polyrepos/template-bun",
+					"https://github.com/polyrepos/template-base",
 				],
 			},
 			null,
@@ -30,7 +30,7 @@ beforeAll(async () => {
 			{
 				repos: [
 					"https://github.com/polyrepos/env",
-					"https://github.com/polyrepos/template-bun",
+					"https://github.com/polyrepos/template-base",
 				],
 			},
 			null,

@@ -9,6 +9,6 @@ test("get-workspace", () => {
 	expect(config.repos).toHaveLength(2);
 	expect(config.repos).toEqual([
 		"https://github.com/polyrepos/env",
-		"https://github.com/polyrepos/template-bun",
+		"https://github.com/polyrepos/template-base",
 	]);
 });

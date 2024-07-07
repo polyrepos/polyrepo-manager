@@ -48,8 +48,8 @@ Like the example project layout, if you need copy template-bun some files go to 
 // package.json
 {
   "polyCopy": {
-    // @polyrepo/template-bun is the template-bun/package.json 's name
-    "@polyrepo/template-bun": [
+    // @polyrepo/template-base is the template-bun/package.json 's name
+    "@polyrepo/template-base": [
       ".github",
       "LICENSE",
       "biome.json",

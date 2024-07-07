@@ -7,5 +7,5 @@ import { run } from "./run";
 test("run", async () => {
 	await run(allDirs, "touch a.txt");
 	expect(fs.existsSync(testPath("env", "a.txt"))).toBe(true);
-	expect(fs.existsSync(testPath("template-bun", "a.txt"))).toBe(true);
+	expect(fs.existsSync(testPath("template-base", "a.txt"))).toBe(true);
 });
