@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.3](https://github.com/polyrepos/polyrepo-manager/compare/v1.1.2...v1.1.3) (2024-07-07)
+
+
+### Bug Fixes
+
+* add copy merge ([69c7db7](https://github.com/polyrepos/polyrepo-manager/commit/69c7db7a1661487f9e2d41a1800126e2c41188f6))
+* add use mock repo ([2e2af62](https://github.com/polyrepos/polyrepo-manager/commit/2e2af6291a76474222d997ef3010379aedeeb835))
+* update template ([5929a40](https://github.com/polyrepos/polyrepo-manager/commit/5929a40f12a1c1c33d10528d03e67aa2dcc77993))
+* update template ([0cb2a34](https://github.com/polyrepos/polyrepo-manager/commit/0cb2a34d9379ac27a6ce989e0b4392a533f04452))
+
 ## [1.1.2](https://github.com/polyrepos/polyrepo-manager/compare/v1.1.1...v1.1.2) (2024-07-07)
 
 
