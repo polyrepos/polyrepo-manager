@@ -8,4 +8,6 @@ test("run", async () => {
 	await run(allDirs, "touch a.txt");
 	expect(fs.existsSync(testPath("env", "a.txt"))).toBe(true);
 	expect(fs.existsSync(testPath("template-base", "a.txt"))).toBe(true);
+	fs.rmSync(testPath("env", "a.txt"));
+	fs.rmSync(testPath("template-base", "a.txt"));
 });

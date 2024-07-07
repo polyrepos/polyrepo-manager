@@ -10,6 +10,9 @@ export async function updateVersion() {
 			for (const depType of ["dependencies", "devDependencies"]) {
 				const keys = Object.keys(pkg[depType] || {});
 				for (const key of keys) {
+					if (!(pkg[depType] as Record<string, string>)[key]) {
+						continue;
+					}
 					const project = allDirsMap[key];
 					if (project) {
 						const projectPkg = JSON.parse(
@@ -17,7 +20,9 @@ export async function updateVersion() {
 						);
 						(pkg[depType] as Record<string, string>)[key] =
 							(projectPkg.version as string) || "latest";
-						console.log(`Update ${item.name} ${key} to ${projectPkg.version}`);
+						console.log(
+							`Update ${item.name}'s ${key} to ${projectPkg.version}`,
+						);
 						updateTimes++;
 						fs.writeFileSync(
 							`${item.dir}/package.json`,

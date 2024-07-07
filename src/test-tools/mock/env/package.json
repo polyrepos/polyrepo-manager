@@ -1,0 +1,49 @@
+{
+  "name": "@polyrepo/env",
+  "version": "1.0.2",
+  "private": false,
+  "module": "src/index.ts",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "./bin.js"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "polyCopy": {
+    "@polyrepo/template-base": [
+      "package.json.merge",
+      ".github",
+      "LICENSE",
+      ".gitignore",
+      "biome.json",
+      ".husky",
+      "tsconfig.json",
+      "tsconfig.ci.json"
+    ]
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@biomejs/biome": "1.8.3",
+    "husky": "^9.0.11"
+  },
+  "peerDependencies": {
+    "typescript": "^5.5.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  },
+  "scripts": {
+    "lint": "bunx @biomejs/biome format --write ./ && git add . && bunx @biomejs/biome lint ./",
+    "ts": "tsc --noemit --skipLibCheck --incremental --tsBuildInfoFile './node_modules/.tsbuildinfo'",
+    "pre-commit": "bun lint && bun ts && bun test",
+    "prepare": "husky install",
+    "unbuild": "bunx unbuild"
+  }
+}

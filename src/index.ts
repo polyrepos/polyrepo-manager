@@ -1,9 +1,9 @@
 import { Command } from "commander";
-import { changes } from "./actions/changed";
+import { changed } from "./actions/changed";
 import { clone } from "./actions/clone";
 import { copy } from "./actions/copy";
 import { run } from "./actions/run";
-import { unChanges } from "./actions/unchanged";
+import { unChanged } from "./actions/unchanged";
 import { updateVersion } from "./actions/update-version";
 import { allDirs } from "./utils/workspaces";
 const program = new Command();
@@ -28,14 +28,14 @@ program
 	.command("changed <args>")
 	.description("Run all workspace has uncommitted dir")
 	.action(async (args) => {
-		changes(allDirs, args);
+		changed(allDirs, args);
 	});
 
 program
 	.command("unchanged <args>")
 	.description("Run all workspace has uncommitted dir")
 	.action(async (args) => {
-		unChanges(allDirs, args);
+		unChanged(allDirs, args);
 	});
 
 program

@@ -38,16 +38,36 @@ export function copy() {
 			if (allDirsMap[packageName]) {
 				for (const file of pkg.polyCopy[packageName]) {
 					const sourcePath = path.resolve(item.dir, file);
-					const targetPath = path.resolve(targetDir.dir, file);
-					if (file.endsWith(".merge") && fs.existsSync(targetPath)) {
-						const sourceContent = JSON.parse(
-							fs.readFileSync(sourcePath).toString(),
-						);
-						const targetContent = JSON.parse(
-							fs.readFileSync(targetPath).toString(),
-						);
-						const newPkg = deepMerge(targetContent, sourceContent);
-						fs.writeFileSync(targetPath, JSON.stringify(newPkg, null, 2));
+					let targetPath = path.resolve(targetDir.dir, file);
+					if (file.endsWith(".merge")) {
+						targetPath = targetPath.replace(".merge", "");
+						if (fs.existsSync(targetPath) && fs.existsSync(sourcePath)) {
+							const sourceContent = JSON.parse(
+								fs.readFileSync(sourcePath).toString(),
+							);
+							const targetContent = JSON.parse(
+								fs.readFileSync(targetPath).toString(),
+							);
+							deepMerge(targetContent, sourceContent);
+							fs.writeFileSync(
+								targetPath,
+								JSON.stringify(targetContent, null, 2),
+							);
+							console.log(
+								`Linked ${sourcePath.replace(rootDir, "").padEnd(40)} -> ${targetPath.replace(rootDir, "")}`,
+							);
+						} else if (
+							!fs.existsSync(targetPath) &&
+							fs.existsSync(sourcePath)
+						) {
+							fs.cpSync(sourcePath, targetPath, {
+								recursive: true,
+								force: true,
+							});
+							console.log(
+								`Linked ${sourcePath.replace(rootDir, "").padEnd(40)} -> ${targetPath.replace(rootDir, "")}`,
+							);
+						}
 					} else {
 						try {
 							fs.unlinkSync(targetPath);

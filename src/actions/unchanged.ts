@@ -5,7 +5,7 @@ import {
 import { type WorkspaceItem, allDirs } from "../utils/workspaces";
 import { run } from "./run";
 
-export async function unChanges(dirs: WorkspaceItem[], args: string) {
+export async function unChanged(dirs: WorkspaceItem[], args: string) {
 	const filters: WorkspaceItem[] = await filterUnChangesDirs(allDirs);
 	return run(filters, args);
 }

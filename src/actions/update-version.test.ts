@@ -8,7 +8,6 @@ test("test update version", async () => {
 	const pkg = JSON.parse(
 		fs.readFileSync(testPath("template-base", "package.json")).toString(),
 	);
-	pkg.devDependencies["@polyrepo/env"] = "0.0.1";
 	pkg.dependencies["@polyrepo/env"] = "0.0.1";
 	fs.writeFileSync(
 		testPath("template-base", "package.json"),
@@ -21,6 +20,6 @@ test("test update version", async () => {
 	const pkg2 = JSON.parse(
 		fs.readFileSync(testPath("template-base", "package.json")).toString(),
 	);
-	expect(pkg2.devDependencies["@polyrepo/env"]).toEqual(envPkg.version);
+	expect(pkg2.devDependencies["@polyrepo/env"]).toEqual(undefined);
 	expect(pkg2.dependencies["@polyrepo/env"]).toEqual(envPkg.version);
 });
