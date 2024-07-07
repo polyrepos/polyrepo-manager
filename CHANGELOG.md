@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.2](https://github.com/polyrepos/polyrepo-manager/compare/v1.1.1...v1.1.2) (2024-07-07)
+
+
+### Bug Fixes
+
+* update template ([f63206e](https://github.com/polyrepos/polyrepo-manager/commit/f63206e2bdaf3601aedce1036040c908fa2ff39d))
+* update template ([9530a08](https://github.com/polyrepos/polyrepo-manager/commit/9530a088a539761f0eaace69a70556cf84263ca1))
+
 ## [1.1.1](https://github.com/polyrepos/polyrepo-manager/compare/v1.1.0...v1.1.1) (2024-07-06)
 
 
