@@ -20,7 +20,7 @@ export function checkUncommittedChanges(dir: string) {
 					exec(
 						"git ls-files --others --exclude-standard",
 						{ cwd: dir },
-						(error, stdout, stderr) => {
+						(error, stdout, _stderr) => {
 							if (error) {
 								reject(error);
 							} else {

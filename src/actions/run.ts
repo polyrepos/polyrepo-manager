@@ -1,7 +1,23 @@
-import { spawn } from "node:child_process";
-import * as path from "node:path";
 import chalk from "chalk";
+import { exec, spawn } from "node:child_process";
+import * as path from "node:path";
+import * as util from "node:util";
 import type { WorkspaceItem } from "../utils/workspaces";
+
+const execPromise = util.promisify(exec);
+
+export async function runCommand(command: string) {
+	try {
+		const { stdout, stderr } = await execPromise(command);
+		if (stderr) {
+			console.error(`Error: ${stderr}`);
+		}
+		return stdout.trim();
+	} catch (error) {
+		console.error("Failed to run command:", error);
+		throw error;
+	}
+}
 
 export function runCommandInDir(dir: string, argsString: string, padEnd = 18) {
 	const args = argsString.split(" ");
@@ -18,11 +34,11 @@ export function runCommandInDir(dir: string, argsString: string, padEnd = 18) {
 			data: { toString: () => string },
 		) => {
 			const lines = data.toString().split("\n");
-			lines.forEach((line, index) => {
+			for (const line of lines) {
 				if (line.trim()) {
 					stream.write(`${basename} ${line}\n`);
 				}
-			});
+			}
 		};
 
 		child.stdout.on("data", (data) => {

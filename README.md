@@ -57,6 +57,10 @@ Like the example project layout, if you need copy template-bun some files go to 
       ".husky",
       "tsconfig.json"
     ]
+  },
+  // github set-secret need username
+  "github": {
+    "username": "polyrepos"
   }
 }
 ```
@@ -71,20 +75,24 @@ poly copy
 
 ### Command Descriptions
 
-`poly copy`
+`poly copy` :
 
 The copy command is used to copy a file from a source path to a destination path. The specific implementation depends on the ./actions/copy module.
 
-`poly update`
+`poly update` :
 
 The update command is used to update the dependencies version in all workspaces. The specific implementation depends on the ./actions/update-version module.
 
-`poly run "git add . && git commit -m 'chore: update readme'"`
+`poly run "git add . && git commit -m 'chore: update readme'"`:
 
 The run command will execute the specified command in all workspaces. For example, running node cli.js run ls will execute the ls command in all workspace directories.
 
-`poly changed "git add . && git commit -m 'chore: update readme'"`
+`poly changed "git add . && git commit -m 'chore: update readme'"` :
 
-`poly unchanged "git pull --rebase"`
+`poly unchanged "git pull --rebase"` :
 
 The changes command will execute the specified command in all workspaces that have uncommitted changes. For example, running node cli.js changes git status will execute the git status command in all workspace directories with uncommitted changes.
+
+`poly set-secret NPM_TOKEN abcdefg123` :
+
+Setting github secret: key, value

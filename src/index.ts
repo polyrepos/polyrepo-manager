@@ -3,6 +3,7 @@ import { changed } from "./actions/changed";
 import { clone } from "./actions/clone";
 import { copy } from "./actions/copy";
 import { run } from "./actions/run";
+import { setSecret } from "./actions/set-secret";
 import { unChanged } from "./actions/unchanged";
 import { updateVersion } from "./actions/update-version";
 import { allDirs } from "./utils/workspaces";
@@ -36,6 +37,13 @@ program
 	.description("Run all workspace has uncommitted dir")
 	.action(async (args) => {
 		unChanged(allDirs, args);
+	});
+
+program
+	.command("set-secret <key> <value>")
+	.description("Run all workspace has uncommitted dir")
+	.action(async (key, value) => {
+		setSecret(allDirs, key, value);
 	});
 
 program

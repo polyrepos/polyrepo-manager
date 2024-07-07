@@ -41,6 +41,9 @@ export function getWorkspaceDir() {
 
 interface WorkspaceConfig {
 	repos: string[];
+	github: {
+		username: string;
+	};
 }
 
 let config: WorkspaceConfig | null = null;

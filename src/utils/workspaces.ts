@@ -5,6 +5,7 @@ import { getWorkspaceConfig, getWorkspaceDir } from "./get-workspace-dir";
 export interface WorkspaceItem {
 	name: string;
 	dir: string;
+	repoName: string;
 	packagePath: string;
 }
 
@@ -12,32 +13,33 @@ function findFirstLevelDirs(): WorkspaceItem[] {
 	const dirs: WorkspaceItem[] = [];
 	const workspaceDir = getWorkspaceDir();
 	const config = getWorkspaceConfig();
-	const files: string[] = [];
+	const files: { dir: string; name: string }[] = [];
 	for (const repo of config.repos) {
 		const cleanUrl = repo.split("?")[0];
-		// 分割路径并获取最后一部分
 		const parts = cleanUrl.split("/");
-		const theDir = path.resolve(workspaceDir, parts[parts.length - 1]);
+		const name = parts[parts.length - 1];
+		const theDir = path.resolve(workspaceDir, name);
 		if (fs.existsSync(theDir)) {
-			files.push(theDir);
+			files.push({ dir: theDir, name });
 		}
 	}
 
 	for (const theDir of files) {
-		if (fs.lstatSync(theDir).isSymbolicLink()) {
+		if (fs.lstatSync(theDir.dir).isSymbolicLink()) {
 			continue;
 		}
 		if (
-			fs.statSync(theDir).isDirectory() &&
-			fs.existsSync(path.join(theDir, "package.json"))
+			fs.statSync(theDir.dir).isDirectory() &&
+			fs.existsSync(path.join(theDir.dir, "package.json"))
 		) {
 			const packageJson = JSON.parse(
-				fs.readFileSync(path.join(theDir, "package.json")).toString(),
+				fs.readFileSync(path.join(theDir.dir, "package.json")).toString(),
 			);
 			dirs.push({
 				name: packageJson.name,
-				dir: theDir,
-				packagePath: path.join(theDir, "package.json"),
+				dir: theDir.dir,
+				repoName: theDir.name,
+				packagePath: path.join(theDir.dir, "package.json"),
 			});
 		}
 	}
