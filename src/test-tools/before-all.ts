@@ -14,6 +14,15 @@ beforeAll(async () => {
 	workspaceData.workspaceDir = testPath("");
 	fs.rmSync(testPath(""), { recursive: true, force: true });
 	fs.mkdirSync(testPath(""), { recursive: true });
+	for (const repo of ["env", "template-base"]) {
+		fs.cpSync(
+			path.resolve(process.cwd(), "src", "test-tools", "mock", repo),
+			testPath(repo),
+			{ recursive: true },
+		);
+		fs.renameSync(testPath(repo, "-git"), testPath(repo, ".git"));
+	}
+
 	fs.writeFileSync(
 		testPath("", "polyrepo.config.json"),
 		JSON.stringify(
