@@ -1,11 +1,8 @@
-import {
-	filterUnChangesDirs,
-	filterUncommittedDirs,
-} from "../utils/filter-uncommitted-dirs";
-import { type WorkspaceItem, allDirs } from "../utils/workspaces";
+import { filterUnChangesDirs } from "../utils/filter-uncommitted-dirs";
+import type { WorkspaceItem } from "../utils/workspaces";
 import { run } from "./run";
 
 export async function unChanged(dirs: WorkspaceItem[], args: string) {
-	const filters: WorkspaceItem[] = await filterUnChangesDirs(allDirs);
+	const filters: WorkspaceItem[] = await filterUnChangesDirs(dirs);
 	return run(filters, args);
 }

@@ -1,7 +1,7 @@
 import { beforeAll } from "bun:test";
+import { config } from "dotenv";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { config } from "dotenv";
 import { clone } from "../actions/clone";
 import { workspaceData } from "../utils/get-workspace-dir";
 

@@ -24,6 +24,6 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build
+      - name: Test
         if: env.GOON == 'true'
         run: bun pre-commit

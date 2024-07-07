@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.17](https://github.com/polyrepos/template-base/compare/v1.3.16...v1.3.17) (2024-07-07)
+
+
+### Bug Fixes
+
+* update template ([9c35993](https://github.com/polyrepos/template-base/commit/9c359931cad793de7385e2c8058f1e0c5dfa9296))
+
 ## [1.3.16](https://github.com/polyrepos/template-base/compare/v1.3.15...v1.3.16) (2024-07-07)
 
 
