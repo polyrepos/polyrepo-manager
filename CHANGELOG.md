@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.4](https://github.com/polyrepos/polyrepo-manager/compare/v1.1.3...v1.1.4) (2024-07-07)
+
+
+### Bug Fixes
+
+* add set secret ([c358898](https://github.com/polyrepos/polyrepo-manager/commit/c3588982532b1348b30b5b17ef7d9ac176d6c4ae))
+* update template ([4a9741e](https://github.com/polyrepos/polyrepo-manager/commit/4a9741e3b272b12e8bc2d59169944d34daffa646))
+
 ## [1.1.3](https://github.com/polyrepos/polyrepo-manager/compare/v1.1.2...v1.1.3) (2024-07-07)
 
 
