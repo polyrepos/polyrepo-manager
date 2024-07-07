@@ -16,37 +16,38 @@ jobs:
           echo "Checking branch name: ${{ github.event.pull_request.head.ref }}"
           if [[ "${{ github.event.pull_request.merged }}" == "true" ]] && [[ "${{ github.event.pull_request.head.ref }}" =~ ^release-please--branch ]]; then
             echo "PR is merged and title matches"
-            echo "PUBLISH=true" >> $GITHUB_ENV
+            echo "GOON=true" >> $GITHUB_ENV
           else
             echo "PR is not merged or title does not match"
-            echo "PUBLISH=false" >> $GITHUB_ENV
+            echo "GOON=false" >> $GITHUB_ENV
           fi
 
       - name: Checkout bun
-        if: env.PUBLISH == 'true'
+        if: env.GOON == 'true'
         uses: actions/checkout@v4
       - name: Install bun
-        if: env.PUBLISH == 'true'
+        if: env.GOON == 'true'
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
 
       - name: Get the last commit message
-        if: env.PUBLISH == 'true'
+        if: env.GOON == 'true'
         id: get_commit
         run: echo "::set-output name=message::$(git log -1 --pretty=%B)"
 
       - name: Install dependencies
-        if: env.PUBLISH == 'true'
+        if: env.GOON == 'true'
         run: bun install
 
       - name: Build
-        if: env.PUBLISH == 'true'
+        if: env.GOON == 'true'
         run: bun unbuild
 
       - name: Authenticate to npm
+        if: env.GOON == 'true'
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
       - name: Publish to npm
-        if: env.PUBLISH == 'true'
+        if: env.GOON == 'true'
         run: npm publish --access public
