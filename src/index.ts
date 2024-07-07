@@ -18,17 +18,17 @@ program
 	});
 
 program
-	.command("run [args...]")
+	.command("run <args>")
 	.description("In all workspace run command")
 	.action((args) => {
-		run(allDirs, args.join(" "));
+		run(allDirs, args);
 	});
 
 program
-	.command("changes [args...]")
+	.command("changes <args>")
 	.description("Run all workspace has uncommitted dir")
 	.action(async (args) => {
-		changes(allDirs, args.join(" "));
+		changes(allDirs, args);
 	});
 
 program
