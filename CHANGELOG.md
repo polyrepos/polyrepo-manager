@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.5](https://github.com/polyrepos/polyrepo-manager/compare/v1.1.4...v1.1.5) (2024-07-08)
+
+
+### Bug Fixes
+
+* poly add pr controller ([9d32e21](https://github.com/polyrepos/polyrepo-manager/commit/9d32e2182208d80a78fc57baf2bc4c3b1e97d8ae))
+* update git tools ([9cab087](https://github.com/polyrepos/polyrepo-manager/commit/9cab08774cded7de347228c0394c688b8f35dff0))
+* update readme, add filter command ([d933bc3](https://github.com/polyrepos/polyrepo-manager/commit/d933bc3dcb8e4211543aca8441ff2363933e2843))
+
 ## [1.1.4](https://github.com/polyrepos/polyrepo-manager/compare/v1.1.3...v1.1.4) (2024-07-07)
 
 
