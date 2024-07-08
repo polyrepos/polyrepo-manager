@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.6](https://github.com/polyrepos/polyrepo-manager/compare/v1.1.5...v1.1.6) (2024-07-08)
+
+
+### Bug Fixes
+
+* test ([7bacb84](https://github.com/polyrepos/polyrepo-manager/commit/7bacb84562483c9615481f88efc75cf41788458a))
+* update reamde ([58d4c7e](https://github.com/polyrepos/polyrepo-manager/commit/58d4c7ec0c3a1855124b30d8e331cd069f11c9ec))
+
 ## [1.1.5](https://github.com/polyrepos/polyrepo-manager/compare/v1.1.4...v1.1.5) (2024-07-08)
 
 
