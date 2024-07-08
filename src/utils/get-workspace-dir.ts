@@ -1,5 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
+import { fsReadJson } from "./get-package";
 export const workspaceData = {
 	workspaceDir: "",
 };
@@ -57,9 +58,7 @@ export function getWorkspaceConfig(): WorkspaceConfig {
 	if (!fs.existsSync(configPath)) {
 		throw new Error("Cannot find polyrepo.config.json in current directory.");
 	}
-	config = JSON.parse(
-		fs.readFileSync(configPath).toString(),
-	) as WorkspaceConfig;
+	config = fsReadJson(configPath) as WorkspaceConfig;
 	for (const repo of config.repos) {
 		if (!repo.startsWith("https://") && !repo.startsWith("http://")) {
 			throw new Error(

@@ -6,9 +6,10 @@ test("get-workspace", () => {
 	const dir = getWorkspaceDir();
 	expect(dir).toBe(testPath(""));
 	const config = getWorkspaceConfig();
-	expect(config.repos).toHaveLength(2);
+	expect(config.repos).toHaveLength(3);
 	expect(config.repos).toEqual([
 		"https://github.com/polyrepos/env",
+		"https://github.com/polyrepos/env2",
 		"https://github.com/polyrepos/template-base",
 	]);
 });

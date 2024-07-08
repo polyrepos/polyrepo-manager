@@ -1,4 +1,4 @@
-import { allDirs, type WorkspaceItem } from "../utils/workspaces";
+import type { WorkspaceItem } from "../utils/workspaces";
 import { run } from "./run";
 
 export async function filterName(
@@ -7,6 +7,6 @@ export async function filterName(
 	args: string,
 ) {
 	const reg = new RegExp(filter);
-	const filters = allDirs.filter((dir) => reg.test(dir.name));
+	const filters = dirs.filter((dir) => reg.test(dir.name));
 	return run(filters, args);
 }

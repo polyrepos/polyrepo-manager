@@ -1,23 +1,23 @@
 import chalk from "chalk";
 import * as fs from "node:fs";
-import { allDirs, allDirsMap } from "../utils/workspaces";
+import { fsReadJson } from "../utils/get-package";
+import { dirToMap, type WorkspaceItem } from "../utils/workspaces";
 
-export async function updateDependencies() {
+export async function updateDependencies(dirs: WorkspaceItem[]) {
 	let updateTimes = 0;
+	const dirMap = dirToMap(dirs);
 	await Promise.allSettled(
-		allDirs.map((item) => {
-			const pkg = JSON.parse(fs.readFileSync(item.packagePath).toString());
+		dirs.map((item) => {
+			const pkg = fsReadJson(item.packagePath);
 			for (const depType of ["dependencies", "devDependencies"]) {
 				const keys = Object.keys(pkg[depType] || {});
 				for (const key of keys) {
 					if (!(pkg[depType] as Record<string, string>)[key]) {
 						continue;
 					}
-					const project = allDirsMap[key];
+					const project = dirMap[key];
 					if (project) {
-						const projectPkg = JSON.parse(
-							fs.readFileSync(project.packagePath).toString(),
-						);
+						const projectPkg = fsReadJson(project.packagePath);
 						(pkg[depType] as Record<string, string>)[key] =
 							(projectPkg.version as string) || "latest";
 						console.log(

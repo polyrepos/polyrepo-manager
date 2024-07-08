@@ -1,5 +1,5 @@
 {
-  "name": "@polyrepo/env",
+  "name": "@polyrepo/env2",
   "polyCopy": {
     "@polyrepo/template-base": [
       "package.json.merge",

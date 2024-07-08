@@ -55,13 +55,14 @@ poly.config.json
 
 ### copy
 
-To copy certain files from `template-base` to `your-project`, edit the `package.json` of `your-project`:
+To copy certain files from `template-base` to `your-project`, edit the `package.json` of `your-project`.
+
+package.json:
 
 ```json
-// package.json
 {
   "polyCopy": {
-    // @polyrepo/template-base is the template-bun/package.json 's name
+    // @polyrepo/template-base is the template-bun/package.json's name
     "@polyrepo/template-base": [
       "package.json.merge",
       ".github",
@@ -110,7 +111,7 @@ poly copy
 
 - `poly set-secret NPM_TOKEN abcdefg123` :
 
-  - (requires github username in, requires brew install gh, gh auth login) Setting workspace all repo github secret: key, value
+  - (requires github username, requires brew install gh, gh auth login) Setting workspace all repo github secret: key, value
 
 - `poly pr squash "chore(main): release"` :
 
