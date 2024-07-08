@@ -9,13 +9,15 @@ import { runCommandInDir } from "./run";
 export async function clone() {
 	const rootDir = getWorkspaceDir();
 	const config = await getWorkspaceConfig();
-	for (const repo of config.repos) {
-		const cleanUrl = repo.split("?")[0];
-		const parts = cleanUrl.split("/");
-		if (fs.existsSync(path.resolve(rootDir, parts[parts.length - 1]))) {
-			console.log(`Repo ${parts[parts.length - 1]} already exists`);
-			continue;
-		}
-		await runCommandInDir(rootDir, `git clone --depth 1 ${repo}`);
-	}
+	return Promise.all(
+		config.repos.map(async (repo) => {
+			const cleanUrl = repo.split("?")[0];
+			const parts = cleanUrl.split("/");
+			if (fs.existsSync(path.resolve(rootDir, parts[parts.length - 1]))) {
+				console.log(`Repo ${parts[parts.length - 1]} already exists`);
+				return;
+			}
+			await runCommandInDir(rootDir, `git clone --depth 1 ${repo}`);
+		}),
+	);
 }

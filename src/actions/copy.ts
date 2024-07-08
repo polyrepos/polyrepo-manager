@@ -8,10 +8,10 @@ import { dirToMap, type WorkspaceItem } from "../utils/workspaces";
 
 export async function copy(dirs: WorkspaceItem[]) {
 	const dirMaps = dirToMap(dirs);
-	for (const targetDir of dirs) {
+	const tasks = dirs.map(async (targetDir) => {
 		const pkg = await fsReadJson(targetDir.packagePath);
 		if (!pkg.polyCopy) {
-			continue;
+			return;
 		}
 		if (!fs.existsSync(targetDir.dir)) {
 			fs.mkdirSync(targetDir.dir, { recursive: true });
@@ -71,6 +71,7 @@ export async function copy(dirs: WorkspaceItem[]) {
 				}
 			}
 		}
-	}
+	});
+	await Promise.all(tasks);
 	console.log(chalk.green("✓ Polyrepo manage copy done."));
 }

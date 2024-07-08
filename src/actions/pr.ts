@@ -24,7 +24,7 @@ export async function pr(
 	const config = await getWorkspaceConfig();
 	const USERNAME = config.github.username;
 
-	for (const dir of dirs) {
+	const tasks = dirs.map(async (dir) => {
 		const REPO_NAME = dir.repoName;
 		const { stdout: prList } = await execAsync(
 			`gh pr list --repo "${USERNAME}/${REPO_NAME}" --search "is:open" --json number,title,mergeable`,
@@ -44,7 +44,7 @@ export async function pr(
 
 		if (!prs.length) {
 			console.log(`No PRs found for repository: ${dir.repoName}`);
-			continue;
+			return;
 		}
 		for (const pr of prs) {
 			console.log(
@@ -60,5 +60,6 @@ export async function pr(
 				console.error(`Failed to merge PR ${pr.title}:`, error);
 			}
 		}
-	}
+	});
+	await Promise.all(tasks);
 }
