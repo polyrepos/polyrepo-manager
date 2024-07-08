@@ -12,12 +12,29 @@ npm i -g ployrepo-manager
 
 ### Multiple polyrepo dir
 
-You need create some polyrepo in a dir, and create `*.code-workspace` in the dir
+Create several polyrepos in a directory, then create a `poly.config.json` file in the directory.
 
-**Example project layout**:
+**poly.config.json**:
+
+```json
+{
+  // add some example
+  "repos": [
+    "https://github.com/polyrepos/template-base",
+    "https://github.com/polyrepos/template-fullstack",
+    "https://github.com/your-username/your-project",
+  ]
+  // github pr and set-secret need username
+  "github": {
+    "username": "polyrepos"
+  }
+}
+```
+
+Run `poly clone` to achieve the following directory structure:
 
 ```
-template-bun
+template-base
   ├── .git
   ├── .husky
   ├── src
@@ -29,20 +46,16 @@ template-fullstack
   ├── .git
   ├── src
   ├── package.json
-template-bun
-  ├── .git
-  ├── src
-  ├── package.json
 your-project
   ├── .git
   ├── src
   ├── package.json
-your-workspace-name.code-workspace
+poly.config.json
 ```
 
 ### copy
 
-Like the example project layout, if you need copy template-bun some files go to your-project repo, you can edit your-project package.json:
+To copy certain files from `template-base` to `your-project`, edit the `package.json` of `your-project`:
 
 ```json
 // package.json
@@ -57,17 +70,13 @@ Like the example project layout, if you need copy template-bun some files go to 
       ".husky",
       "tsconfig.json"
     ]
-  },
-  // github set-secret need username
-  "github": {
-    "username": "polyrepos"
   }
 }
 ```
 
-If the file is _.json.merge, and target has _.json file, we can merge _.json.merge to _.json
+If a file ends with `.json.merge` and the target file ends with `.json`, the contents will be merged. It is safe and will not overwrite existing fields.
 
-After setting up, run this script:
+Run the script to execute the copy:
 
 ```sh
 poly copy
@@ -75,24 +84,38 @@ poly copy
 
 ### Command Descriptions
 
-`poly copy` :
+- `poly copy` :
 
-The copy command is used to copy a file from a source path to a destination path. The specific implementation depends on the ./actions/copy module.
+  - The copy command is used to copy a file from a source path to a destination path. The specific implementation depends on the ./actions/copy module.
 
-`poly update` :
+- `poly update` :
 
-The update command is used to update the dependencies version in all workspaces. The specific implementation depends on the ./actions/update-version module.
+  - The update command is used to update the dependencies version in all workspaces. The specific implementation depends on the ./actions/update-version module.
 
-`poly run "git add . && git commit -m 'chore: update readme'"`:
+- `poly all "git add . && git commit -m 'chore: update readme'"`:
 
-The run command will execute the specified command in all workspaces. For example, running node cli.js run ls will execute the ls command in all workspace directories.
+  - The run command will execute the specified command in all workspaces. For example, running node cli.js run ls will execute the ls command in all workspace directories.
 
-`poly changed "git add . && git commit -m 'chore: update readme'"` :
+- `poly filter "template-" "touch README.md"` :
 
-`poly unchanged "git pull --rebase"` :
+  - The run package.name is match /template-/ repos.
 
-The changes command will execute the specified command in all workspaces that have uncommitted changes. For example, running node cli.js changes git status will execute the git status command in all workspace directories with uncommitted changes.
+- `poly changed "git add . && git commit -m 'chore: update readme'"` :
 
-`poly set-secret NPM_TOKEN abcdefg123` :
+  - The changed command will execute the specified command in all workspaces that have uncommitted changes. For example, running node cli.js changes git status will execute the git status command in all workspace directories with uncommitted changes.
 
-Setting github secret: key, value
+- `poly unchanged "git pull --rebase"` :
+
+  - The unchanged command will execute the specified command in all workspaces that not have uncommitted changed.
+
+- `poly set-secret NPM_TOKEN abcdefg123` :
+
+  - (requires github username in, requires brew install gh, gh auth login) Setting workspace all repo github secret: key, value
+
+- `poly pr squash "chore(main): release"` :
+
+  - (requires github username, requires brew install gh, gh auth login) Merge --squash all repos PR match title is start with: chore(main): release
+
+- `poly pr rebase "chore(main): release"` :
+
+  - (requires github username, requires brew install gh, gh auth login) Merge --rebase all repos PR match title is start with: chore(main): release

@@ -20,10 +20,17 @@ program
 	});
 
 program
-	.command("run <args>")
+	.command("all <args>")
 	.description("In all workspace run command")
 	.action((args) => {
 		run(allDirs, args);
+	});
+
+program
+	.command("filter <filter> <args>")
+	.description("In all workspace run command")
+	.action((filter, args) => {
+		filter(allDirs, filter, args);
 	});
 
 program
