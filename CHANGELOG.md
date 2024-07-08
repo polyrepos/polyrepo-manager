@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/polyrepos/polyrepo-manager/compare/v1.2.0...v1.2.1) (2024-07-08)
+
+
+### Bug Fixes
+
+* add parallel ([45ee63b](https://github.com/polyrepos/polyrepo-manager/commit/45ee63b502056cdb2d49e56072f5564d687aa629))
+
 ## [1.2.0](https://github.com/polyrepos/polyrepo-manager/compare/v1.1.6...v1.2.0) (2024-07-08)
 
 
