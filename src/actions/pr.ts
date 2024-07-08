@@ -21,7 +21,7 @@ export async function pr(
 			"Please provide a valid event, like: squash | merge | rebase",
 		);
 	}
-	const config = getWorkspaceConfig();
+	const config = await getWorkspaceConfig();
 	const USERNAME = config.github.username;
 
 	for (const dir of dirs) {

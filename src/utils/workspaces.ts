@@ -12,10 +12,10 @@ export interface WorkspaceItem {
 	packagePath: string;
 }
 
-function findFirstLevelDirs(): WorkspaceItem[] {
+async function findFirstLevelDirs(): Promise<WorkspaceItem[]> {
 	const dirs: WorkspaceItem[] = [];
 	const workspaceDir = getWorkspaceDir();
-	const config = getWorkspaceConfig();
+	const config = await getWorkspaceConfig();
 	const files: { dir: string; name: string; homepage: string }[] = [];
 	for (const homepage of config.repos) {
 		const cleanUrl = homepage.split("?")[0];
@@ -35,7 +35,9 @@ function findFirstLevelDirs(): WorkspaceItem[] {
 			fs.statSync(theDir.dir).isDirectory() &&
 			fs.existsSync(path.join(theDir.dir, "package.json"))
 		) {
-			const packageJson = fsReadJson(path.join(theDir.dir, "package.json"));
+			const packageJson = await fsReadJson(
+				path.join(theDir.dir, "package.json"),
+			);
 			dirs.push({
 				name: packageJson.name,
 				dir: theDir.dir,

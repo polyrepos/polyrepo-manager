@@ -1,4 +1,4 @@
-import { afterAll, beforeAll } from "bun:test";
+import { beforeAll } from "bun:test";
 import { config } from "dotenv";
 import * as fs from "node:fs";
 import * as path from "node:path";
@@ -10,10 +10,6 @@ config();
 
 export const testPath = (...args: string[]) =>
 	path.resolve(process.cwd(), "test-temp", ...args);
-
-afterAll(() => {
-	fs.rmSync(testPath(""), { recursive: true, force: true });
-});
 
 beforeAll(async () => {
 	workspaceData.workspaceDir = testPath("");

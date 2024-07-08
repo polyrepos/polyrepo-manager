@@ -4,12 +4,12 @@ import * as path from "node:path";
 import { deepMerge } from "../utils/deep-merge";
 import { fsReadJson } from "../utils/get-package";
 import { getWorkspaceDir } from "../utils/get-workspace-dir";
-import { allDirs, dirToMap, type WorkspaceItem } from "../utils/workspaces";
+import { dirToMap, type WorkspaceItem } from "../utils/workspaces";
 
-export function copy(dirs: WorkspaceItem[]) {
+export async function copy(dirs: WorkspaceItem[]) {
 	const dirMaps = dirToMap(dirs);
-	for (const targetDir of allDirs()) {
-		const pkg = fsReadJson(targetDir.packagePath);
+	for (const targetDir of dirs) {
+		const pkg = await fsReadJson(targetDir.packagePath);
 		if (!pkg.polyCopy) {
 			continue;
 		}
@@ -27,8 +27,8 @@ export function copy(dirs: WorkspaceItem[]) {
 					if (file.endsWith(".merge")) {
 						targetPath = targetPath.replace(".merge", "");
 						if (fs.existsSync(targetPath) && fs.existsSync(sourcePath)) {
-							const sourceContent = fsReadJson(sourcePath);
-							const targetContent = fsReadJson(targetPath);
+							const sourceContent = await fsReadJson(sourcePath);
+							const targetContent = await fsReadJson(targetPath);
 							deepMerge(targetContent, sourceContent, false);
 							fs.writeFileSync(
 								targetPath,

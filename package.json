@@ -21,6 +21,7 @@
     "poly": "./bin.js"
   },
   "scripts": {
+    "unit": "bun test && rm -rf test-temp",
     "copy": "bun run src/copy.ts",
     "installs": "bun run src/installs.ts",
     "unbuild": "bunx unbuild",

@@ -1,10 +1,10 @@
-import * as fs from "node:fs";
-export function fsReadJson(packagePath: string) {
-	if (!fs.existsSync(packagePath)) {
-		return {};
-	}
+import { promises as fs } from "node:fs";
+
+export async function fsReadJson(packagePath: string) {
 	try {
-		return JSON.parse(fs.readFileSync(packagePath).toString());
+		await fs.access(packagePath);
+		const data = await fs.readFile(packagePath, "utf-8");
+		return JSON.parse(data);
 	} catch (_e) {
 		return {};
 	}

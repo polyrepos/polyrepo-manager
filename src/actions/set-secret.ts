@@ -7,7 +7,7 @@ export async function setSecret(
 	key: string,
 	value: string,
 ) {
-	const config = getWorkspaceConfig();
+	const config = await getWorkspaceConfig();
 	for (const dir of dirs) {
 		console.log("Setting secret for repository:", dir.repoName);
 		try {

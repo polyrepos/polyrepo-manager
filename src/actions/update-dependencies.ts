@@ -7,8 +7,8 @@ export async function updateDependencies(dirs: WorkspaceItem[]) {
 	let updateTimes = 0;
 	const dirMap = dirToMap(dirs);
 	await Promise.allSettled(
-		dirs.map((item) => {
-			const pkg = fsReadJson(item.packagePath);
+		dirs.map(async (item) => {
+			const pkg = await fsReadJson(item.packagePath);
 			for (const depType of ["dependencies", "devDependencies"]) {
 				const keys = Object.keys(pkg[depType] || {});
 				for (const key of keys) {
@@ -17,7 +17,7 @@ export async function updateDependencies(dirs: WorkspaceItem[]) {
 					}
 					const project = dirMap[key];
 					if (project) {
-						const projectPkg = fsReadJson(project.packagePath);
+						const projectPkg = await fsReadJson(project.packagePath);
 						(pkg[depType] as Record<string, string>)[key] =
 							(projectPkg.version as string) || "latest";
 						console.log(

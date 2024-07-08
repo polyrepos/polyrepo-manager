@@ -22,23 +22,24 @@ beforeEach(() => {
 });
 
 describe("changed and unchanged", async () => {
+	const dirs = await allDirs();
 	await test("only run git changed", async () => {
-		await changed(allDirs(), "touch b.txt");
+		await changed(dirs, "touch b.txt");
 		expect(fs.existsSync(testPath("env", "b.txt"))).toBe(false);
 		expect(fs.existsSync(testPath("template-base", "b.txt"))).toBe(false);
 		fs.writeFileSync(testPath("env", "add-commit.txt"), "test2");
-		await changed(allDirs(), "touch changed.txt");
+		await changed(dirs, "touch changed.txt");
 		expect(fs.existsSync(testPath("env", "changed.txt"))).toBe(true);
 		expect(fs.existsSync(testPath("template-base", "changed.txt"))).toBe(false);
 	});
 	await test("only run git unchanged", async () => {
-		await unChanged(allDirs(), "touch b.txt");
+		await unChanged(dirs, "touch b.txt");
 		expect(fs.existsSync(testPath("env", "b.txt"))).toBe(true);
 		expect(fs.existsSync(testPath("template-base", "b.txt"))).toBe(true);
 		fs.rmSync(testPath("env", "b.txt"));
 		fs.rmSync(testPath("template-base", "b.txt"));
 		fs.writeFileSync(testPath("env", "add-commit.txt"), "test2");
-		await unChanged(allDirs(), "touch unchanged.txt");
+		await unChanged(dirs, "touch unchanged.txt");
 		expect(fs.existsSync(testPath("env", "unchanged.txt"))).toBe(false);
 		expect(fs.existsSync(testPath("template-base", "unchanged.txt"))).toBe(
 			true,

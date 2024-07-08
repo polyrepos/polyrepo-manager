@@ -8,7 +8,7 @@ import { runCommandInDir } from "./run";
 
 export async function clone() {
 	const rootDir = getWorkspaceDir();
-	const config = getWorkspaceConfig();
+	const config = await getWorkspaceConfig();
 	for (const repo of config.repos) {
 		const cleanUrl = repo.split("?")[0];
 		const parts = cleanUrl.split("/");

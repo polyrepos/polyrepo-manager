@@ -49,7 +49,7 @@ interface WorkspaceConfig {
 
 let config: WorkspaceConfig | null = null;
 
-export function getWorkspaceConfig(): WorkspaceConfig {
+export async function getWorkspaceConfig(): Promise<WorkspaceConfig> {
 	if (config) {
 		return config;
 	}
@@ -58,7 +58,7 @@ export function getWorkspaceConfig(): WorkspaceConfig {
 	if (!fs.existsSync(configPath)) {
 		throw new Error("Cannot find polyrepo.config.json in current directory.");
 	}
-	config = fsReadJson(configPath) as WorkspaceConfig;
+	config = (await fsReadJson(configPath)) as WorkspaceConfig;
 	for (const repo of config.repos) {
 		if (!repo.startsWith("https://") && !repo.startsWith("http://")) {
 			throw new Error(

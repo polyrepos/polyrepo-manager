@@ -5,7 +5,7 @@ import type { WorkspaceItem } from "../utils/workspaces";
 
 export async function prettierPackage(dirs: WorkspaceItem[]) {
 	for (const dir of dirs) {
-		const pkg = fsReadJson(dir.packagePath);
+		const pkg = await fsReadJson(dir.packagePath);
 		const otherKeys = { homepage: dir.homepage, version: "0.0.1" };
 		deepMerge(otherKeys, pkg, false);
 
