@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.0](https://github.com/polyrepos/polyrepo-manager/compare/v1.1.6...v1.2.0) (2024-07-08)
+
+
+### Features
+
+* refactor dir getter ([4bd725c](https://github.com/polyrepos/polyrepo-manager/commit/4bd725ccd99e25c12abc999dfb246c2f68abf17f))
+
+
+### Bug Fixes
+
+* add prettier-package ([9cb65e2](https://github.com/polyrepos/polyrepo-manager/commit/9cb65e2f1286b62a9c01b1d9253c88e6b7cbe06b))
+* unit test add after-all ([80f2e29](https://github.com/polyrepos/polyrepo-manager/commit/80f2e29af753dcc9eae3d4068be8b6ce17d2363a))
+
 ## [1.1.6](https://github.com/polyrepos/polyrepo-manager/compare/v1.1.5...v1.1.6) (2024-07-08)
 
 
