@@ -6,7 +6,7 @@ import { pr } from "./actions/pr";
 import { run } from "./actions/run";
 import { setSecret } from "./actions/set-secret";
 import { unChanged } from "./actions/unchanged";
-import { updateVersion } from "./actions/update-version";
+import { updateDependencies } from "./actions/update-dependencies";
 import { allDirs } from "./utils/workspaces";
 const program = new Command();
 
@@ -65,7 +65,7 @@ program
 	.command("update")
 	.description("Update all workspace dependencies version")
 	.action(() => {
-		updateVersion();
+		updateDependencies();
 	});
 
 program

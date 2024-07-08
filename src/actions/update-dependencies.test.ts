@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test";
 import * as fs from "node:fs";
 import { testPath } from "../test-tools/before-all";
-import { updateVersion } from "./update-version";
+import { updateDependencies } from "./update-dependencies";
 
 test("test update version", async () => {
 	fs.rmSync(testPath("env", ".gitignore"), { recursive: true, force: true });
@@ -13,7 +13,7 @@ test("test update version", async () => {
 		testPath("template-base", "package.json"),
 		JSON.stringify(pkg, null, 2),
 	);
-	updateVersion();
+	updateDependencies();
 	const envPkg = JSON.parse(
 		fs.readFileSync(testPath("env", "package.json")).toString(),
 	);

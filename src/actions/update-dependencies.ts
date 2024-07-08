@@ -1,8 +1,8 @@
-import * as fs from "node:fs";
 import chalk from "chalk";
+import * as fs from "node:fs";
 import { allDirs, allDirsMap } from "../utils/workspaces";
 
-export async function updateVersion() {
+export async function updateDependencies() {
 	let updateTimes = 0;
 	await Promise.allSettled(
 		allDirs.map((item) => {
