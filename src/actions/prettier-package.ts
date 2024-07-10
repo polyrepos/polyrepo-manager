@@ -1,6 +1,6 @@
 import { fs, path } from "zx";
 import { deepMerge } from "../utils/deep-merge";
-import { fsReadJson } from "../utils/get-package";
+import { fsReadJson } from "../utils/fs-read-json";
 import type { WorkspaceItem } from "../utils/workspaces";
 
 export async function prettierPackage(dirs: WorkspaceItem[]) {
@@ -56,7 +56,7 @@ export async function prettierPackage(dirs: WorkspaceItem[]) {
 			await fs.writeJson(path.join(dir.dir, "package.json"), newPkg, {
 				spaces: 2,
 			});
-			console.log(`Prettier ${dir.name}`);
+			console.log(`Prettier ${dir.packageName}`);
 		}),
 	);
 }

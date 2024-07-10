@@ -5,7 +5,8 @@ export async function fsReadJson(packagePath: string) {
 		await fs.access(packagePath);
 		const data = await fs.readFile(packagePath, "utf-8");
 		return JSON.parse(data);
-	} catch (_e) {
+	} catch (e) {
+		console.error(e);
 		return {};
 	}
 }

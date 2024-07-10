@@ -2,9 +2,9 @@ import chalk from "chalk";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { deepMerge } from "../utils/deep-merge";
-import { fsReadJson } from "../utils/get-package";
+import { fsReadJson } from "../utils/fs-read-json";
 import { getWorkspaceDir } from "../utils/get-workspace-dir";
-import { dirToMap, type WorkspaceItem } from "../utils/workspaces";
+import { type WorkspaceItem, dirToMap } from "../utils/workspaces";
 
 export async function copy(dirs: WorkspaceItem[]) {
 	const dirMaps = dirToMap(dirs);

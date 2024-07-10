@@ -1,14 +1,14 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { fsReadJson } from "./get-package";
+import { fsReadJson } from "./fs-read-json";
 import { getWorkspaceConfig, getWorkspaceDir } from "./get-workspace-dir";
 import { memoize } from "./memoize";
 
 export interface WorkspaceItem {
-	name: string;
 	dir: string;
 	repoName: string;
 	homepage: string;
+	packageName: string;
 	packagePath: string;
 }
 
@@ -36,10 +36,15 @@ async function findFirstLevelDirs(): Promise<WorkspaceItem[]> {
 			fs.existsSync(path.join(theDir.dir, "package.json"))
 		) {
 			const packageJson = await fsReadJson(
-				path.join(theDir.dir, "package.json"),
+				path.resolve(theDir.dir, "package.json"),
 			);
+			if (!packageJson.name) {
+				throw new Error(
+					`package.json must have a name field: ${JSON.stringify(packageJson)}, dir: ${path.resolve(theDir.dir, "package.json")}`,
+				);
+			}
 			dirs.push({
-				name: packageJson.name,
+				packageName: packageJson.name,
 				dir: theDir.dir,
 				repoName: theDir.name,
 				homepage: theDir.homepage,
@@ -53,7 +58,7 @@ export const allDirs = memoize(() => findFirstLevelDirs());
 export const dirToMap = memoize((dirs: WorkspaceItem[]) =>
 	dirs.reduce(
 		(acc, cur) => {
-			acc[cur.name] = cur;
+			acc[cur.packageName] = cur;
 			return acc;
 		},
 		{} as Record<string, WorkspaceItem>,

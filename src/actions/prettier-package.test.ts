@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
 import { testPath } from "../test-tools/before-all";
-import { fsReadJson } from "../utils/get-package";
+import { fsReadJson } from "../utils/fs-read-json";
 import { allDirs } from "../utils/workspaces";
 import { copy } from "./copy";
 import { prettierPackage } from "./prettier-package";

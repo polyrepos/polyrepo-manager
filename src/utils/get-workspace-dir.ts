@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { fsReadJson } from "./get-package";
+import { fsReadJson } from "./fs-read-json";
 export const workspaceData = {
 	workspaceDir: "",
 };
@@ -59,11 +59,16 @@ export async function getWorkspaceConfig(): Promise<WorkspaceConfig> {
 		throw new Error("Cannot find polyrepo.config.json in current directory.");
 	}
 	config = (await fsReadJson(configPath)) as WorkspaceConfig;
+	let i = -1;
 	for (const repo of config.repos) {
+		i++;
 		if (!repo.startsWith("https://") && !repo.startsWith("http://")) {
 			throw new Error(
 				`Invalid repo url: ${repo} need to start with http or https`,
 			);
+		}
+		if (repo.endsWith(".git")) {
+			config.repos[i] = repo.slice(0, -4);
 		}
 	}
 	return config;

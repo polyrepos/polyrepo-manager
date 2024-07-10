@@ -13,9 +13,13 @@ const program = new Command();
 
 program
 	.version("0.1.0")
-	.description("A simple CLI tool")
+	.description(
+		"The purpose of monorepos should be questioned. Monorepos are used because sharing a set of code across multiple projects makes it inconvenient to frequently update dependencies, so everything is put into one repository. However, this makes it difficult to edit packages across different enterprises and projects. Traditional polyrepos do not have this issue. This approach does not align with first principles. Instead, we should focus on better combining multiple polyrepos rather than putting them into a single repository. Having each package in its own repository enhances modularity and flexibility. By creating a CLI tool to manage multiple polyrepos.",
+	)
 	.command("copy")
-	.description("Copy a file from source to destination")
+	.description(
+		"The copy command is used to copy a file from a source path to a destination path",
+	)
 	.action(async () => {
 		copy(await allDirs());
 	});
@@ -29,7 +33,9 @@ program
 
 program
 	.command("filter <filter> <args>")
-	.description("In all workspace run command")
+	.description(
+		`poly filter "template-" "touch README.md", The run package.name is match /template-/ repos.`,
+	)
 	.action(async (filter, args) => {
 		filter(await allDirs(), filter, args);
 	});
@@ -43,14 +49,14 @@ program
 
 program
 	.command("unchanged <args>")
-	.description("Run all workspace has uncommitted dir")
+	.description("Run all workspace has changed dir")
 	.action(async (args) => {
 		unChanged(await allDirs(), args);
 	});
 
 program
 	.command("set-secret <key> <value>")
-	.description("Run all workspace has uncommitted dir")
+	.description("Run all workspace set github secret")
 	.action(async (key, value) => {
 		setSecret(await allDirs(), key, value);
 	});
@@ -64,9 +70,10 @@ program
 
 program
 	.command("update")
+	.option("--npm", "update all workspace dependencies version by npm")
 	.description("Update all workspace dependencies version")
-	.action(async () => {
-		updateDependencies(await allDirs());
+	.action(async (options) => {
+		updateDependencies(await allDirs(), options.npm || false);
 	});
 
 program
@@ -77,7 +84,7 @@ program
 	});
 
 program
-	.command("prittier-package")
+	.command("prettier-package")
 	.description("prettier your package.json")
 	.action(async () => {
 		prettierPackage(await allDirs());

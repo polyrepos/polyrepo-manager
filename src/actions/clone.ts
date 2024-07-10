@@ -13,8 +13,9 @@ export async function clone() {
 		config.repos.map(async (repo) => {
 			const cleanUrl = repo.split("?")[0];
 			const parts = cleanUrl.split("/");
-			if (fs.existsSync(path.resolve(rootDir, parts[parts.length - 1]))) {
-				console.log(`Repo ${parts[parts.length - 1]} already exists`);
+			const name = parts[parts.length - 1];
+			if (fs.existsSync(path.resolve(rootDir, name))) {
+				console.log(`Repo ${name} already exists`);
 				return;
 			}
 			await runCommandInDir(rootDir, `git clone --depth 1 ${repo}`);

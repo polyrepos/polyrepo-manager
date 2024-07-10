@@ -1,9 +1,13 @@
 import chalk from "chalk";
+import { execSync } from "node:child_process";
 import * as fs from "node:fs";
-import { fsReadJson } from "../utils/get-package";
-import { dirToMap, type WorkspaceItem } from "../utils/workspaces";
+import { fsReadJson } from "../utils/fs-read-json";
+import { type WorkspaceItem, dirToMap } from "../utils/workspaces";
 
-export async function updateDependencies(dirs: WorkspaceItem[]) {
+export async function updateDependencies(
+	dirs: WorkspaceItem[],
+	loadNpm: boolean,
+) {
 	let updateTimes = 0;
 	const dirMap = dirToMap(dirs);
 	await Promise.allSettled(
@@ -18,10 +22,18 @@ export async function updateDependencies(dirs: WorkspaceItem[]) {
 					const project = dirMap[key];
 					if (project) {
 						const projectPkg = await fsReadJson(project.packagePath);
-						(pkg[depType] as Record<string, string>)[key] =
-							(projectPkg.version as string) || "latest";
+						if (loadNpm) {
+							const latestVersion = execSync(`npm show ${key} version`)
+								.toString()
+								.trim();
+							(pkg[depType] as Record<string, string>)[key] =
+								latestVersion || "latest";
+						} else {
+							(pkg[depType] as Record<string, string>)[key] =
+								(projectPkg.version as string) || "latest";
+						}
 						console.log(
-							`Update ${item.name}'s ${key} to ${projectPkg.version}`,
+							`Update ${item.packageName}'s ${key} to ${(pkg[depType] as Record<string, string>)[key]} ${loadNpm ? "by npm" : ""}`,
 						);
 						updateTimes++;
 						fs.writeFileSync(

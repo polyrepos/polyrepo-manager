@@ -87,15 +87,15 @@ poly copy
 
 - `poly copy` :
 
-  - The copy command is used to copy a file from a source path to a destination path. The specific implementation depends on the ./actions/copy module.
+  - The copy command is used to copy a file from a source path to a destination path.
 
-- `poly update` :
+- `poly update --npm` :
 
-  - The update command is used to update the dependencies version in all workspaces. The specific implementation depends on the ./actions/update-version module.
+  - The update command is used to update the dependencies version in all workspaces.
 
 - `poly all "git add . && git commit -m 'chore: update readme'"`:
 
-  - The run command will execute the specified command in all workspaces. For example, running node cli.js run ls will execute the ls command in all workspace directories.
+  - In all workspace run command.
 
 - `poly filter "template-" "touch README.md"` :
 
@@ -120,3 +120,31 @@ poly copy
 - `poly pr rebase "chore(main): release"` :
 
   - (requires github username, requires brew install gh, gh auth login) Merge --rebase all repos PR match title is start with: chore(main): release
+
+- `poly --help`:
+
+```
+Usage: poly [options] [command]
+
+The purpose of monorepos should be questioned. Monorepos are used because sharing a set of code across multiple projects makes it inconvenient to frequently update dependencies, so everything is put into one
+repository. However, this makes it difficult to edit packages across different enterprises and projects. Traditional polyrepos do not have this issue. This approach does not align with first principles. Instead, we
+should focus on better combining multiple polyrepos rather than putting them into a single repository. Having each package in its own repository enhances modularity and flexibility. By creating a CLI tool to manage
+multiple polyrepos.
+
+Options:
+  -V, --version             output the version number
+  -h, --help                display help for command
+
+Commands:
+  copy                      The copy command is used to copy a file from a source path to a destination path
+  all <args>                In all workspace run command
+  filter <filter> <args>    poly filter "template-" "touch README.md", The run package.name is match /template-/ repos.
+  changed <args>            Run all workspace has uncommitted dir
+  unchanged <args>          Run all workspace has changed dir
+  set-secret <key> <value>  Run all workspace set github secret
+  pr <event> <matchTitle>   merge pr, like: poly pr squash 'chore(main): release'
+  update [options]          Update all workspace dependencies version
+  clone                     Clone all repos in workspace
+  prettier-package          prettier your package.json
+  help [command]            display help for command
+```

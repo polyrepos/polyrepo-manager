@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test";
 import * as fs from "node:fs";
 import { testPath } from "../test-tools/before-all";
-import { fsReadJson } from "../utils/get-package";
+import { fsReadJson } from "../utils/fs-read-json";
 import { allDirs } from "../utils/workspaces";
 import { updateDependencies } from "./update-dependencies";
 
@@ -13,7 +13,7 @@ test("test update version", async () => {
 		testPath("env2", "package.json"),
 		JSON.stringify(pkg, null, 2),
 	);
-	updateDependencies(await allDirs());
+	updateDependencies(await allDirs(), false);
 	const envPkg = await fsReadJson(testPath("env2", "package.json"));
 	const pkg2 = await fsReadJson(testPath("template-base", "package.json"));
 	expect(pkg2.devDependencies["@polyrepo/env"]).toEqual(undefined);

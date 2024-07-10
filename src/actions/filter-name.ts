@@ -7,6 +7,6 @@ export async function filterName(
 	args: string,
 ) {
 	const reg = new RegExp(filter);
-	const filters = dirs.filter((dir) => reg.test(dir.name));
+	const filters = dirs.filter((dir) => reg.test(dir.packageName));
 	return run(filters, args);
 }
