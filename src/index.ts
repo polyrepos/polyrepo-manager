@@ -2,6 +2,7 @@ import { Command } from "commander";
 import { changed } from "./actions/changed";
 import { clone } from "./actions/clone";
 import { copy } from "./actions/copy";
+import { filterName } from "./actions/filter-name";
 import { pr } from "./actions/pr";
 import { prettierPackage } from "./actions/prettier-package";
 import { run } from "./actions/run";
@@ -37,7 +38,7 @@ program
 		`poly filter "template-" "touch README.md", The run package.name is match /template-/ repos.`,
 	)
 	.action(async (filter, args) => {
-		filter(await allDirs(), filter, args);
+		filterName(await allDirs(), filter, args);
 	});
 
 program
