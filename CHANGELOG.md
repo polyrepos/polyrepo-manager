@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.5](https://github.com/polyrepos/polyrepo-manager/compare/v1.2.4...v1.2.5) (2024-07-10)
+
+
+### Bug Fixes
+
+* merge cli command to options ([61a63cf](https://github.com/polyrepos/polyrepo-manager/commit/61a63cf327f271a4a9b282df190bccd685ef992c))
+
 ## [1.2.4](https://github.com/polyrepos/polyrepo-manager/compare/v1.2.3...v1.2.4) (2024-07-10)
 
 
