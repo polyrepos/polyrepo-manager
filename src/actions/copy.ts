@@ -29,7 +29,7 @@ export async function copy(dirs: WorkspaceItem[]) {
 						if (fs.existsSync(targetPath) && fs.existsSync(sourcePath)) {
 							const sourceContent = await fsReadJson(sourcePath);
 							const targetContent = await fsReadJson(targetPath);
-							deepMerge(targetContent, sourceContent, false);
+							deepMerge(targetContent, sourceContent, true);
 							fs.writeFileSync(
 								targetPath,
 								JSON.stringify(targetContent, null, 2),

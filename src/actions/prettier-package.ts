@@ -8,7 +8,7 @@ export async function prettierPackage(dirs: WorkspaceItem[]) {
 		dirs.map(async (dir) => {
 			const pkg = await fsReadJson(dir.packagePath);
 			const otherKeys = { homepage: dir.homepage, version: "0.0.1" };
-			deepMerge(otherKeys, pkg, false);
+			deepMerge(otherKeys, pkg, true);
 
 			// 把 pkg 中的 name, version, private 按顺序放到 newPkg 中
 			let newPkg = {} as Record<string, unknown>;
