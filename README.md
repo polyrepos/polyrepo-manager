@@ -104,8 +104,26 @@ Commands:
   run [options] <args>                In all workspace run command, options: --all, --changed, --unchanged, --filter, --unmatched
   set-secret [options] <key> <value>  Run all workspace set github secret, options: --all, --changed, --unchanged, --filter, --unmatched
   pr [options] <event> <matchTitle>   merge pr, like: poly pr squash 'chore(main): release', options: --all, --changed, --unchanged, --filter, --unmatched
-  update [options]                    Update all workspace dependencies version, options: --all, --changed, --unchanged, --filter, --unmatched
+  update [options]                    Update all workspace dependencies version, options: --all, --changed, --unchanged, --filter, --unmatched, --npm
   clone                               Clone all repos in workspace
   prettier-package [options]          prettier your package.json, options: --all, --changed, --unchanged, --filter, --unmatched
   help [command]                      display help for command
+```
+
+Example:
+
+```sh
+poly run "git add . && git commit -m 'chore: change readme'" --changed
+```
+
+```sh
+poly run "git pull --rebase" --unchanged
+```
+
+```sh
+poly update --all --npm
+```
+
+```sh
+poly prettier-package --all
 ```
