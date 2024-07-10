@@ -1,14 +1,12 @@
 import { Command } from "commander";
-import { changed } from "./actions/changed";
 import { clone } from "./actions/clone";
 import { copy } from "./actions/copy";
-import { filterName } from "./actions/filter-name";
 import { pr } from "./actions/pr";
 import { prettierPackage } from "./actions/prettier-package";
 import { run } from "./actions/run";
 import { setSecret } from "./actions/set-secret";
-import { unChanged } from "./actions/unchanged";
 import { updateDependencies } from "./actions/update-dependencies";
+import { filterDirsByOptions } from "./utils/filter-dirs-by-options";
 import { allDirs } from "./utils/workspaces";
 const program = new Command();
 
@@ -26,55 +24,64 @@ program
 	});
 
 program
-	.command("all <args>")
-	.description("In all workspace run command")
-	.action(async (args) => {
-		run(await allDirs(), args);
-	});
-
-program
-	.command("filter <filter> <args>")
+	.command("run <args>")
+	.option("--all", "Run all workspace")
+	.option("--changed", "Run all workspace has uncommitted dir")
+	.option("--unchanged", "Run all workspace has unchanged dir")
+	.option("--filter", "Use package name match")
+	.option("--unmatched", "Use package name unmatched")
 	.description(
-		`poly filter "template-" "touch README.md", The run package.name is match /template-/ repos.`,
+		"In all workspace run command, options: --all, --changed, --unchanged, --filter, --unmatched",
 	)
-	.action(async (filter, args) => {
-		filterName(await allDirs(), filter, args);
-	});
-
-program
-	.command("changed <args>")
-	.description("Run all workspace has uncommitted dir")
-	.action(async (args) => {
-		changed(await allDirs(), args);
-	});
-
-program
-	.command("unchanged <args>")
-	.description("Run all workspace has changed dir")
-	.action(async (args) => {
-		unChanged(await allDirs(), args);
+	.action(async (args, options) => {
+		const dirs = await filterDirsByOptions(await allDirs(), options);
+		return run(dirs, args);
 	});
 
 program
 	.command("set-secret <key> <value>")
-	.description("Run all workspace set github secret")
-	.action(async (key, value) => {
-		setSecret(await allDirs(), key, value);
+	.option("--all", "Run all workspace")
+	.option("--changed", "Run all workspace has uncommitted dir")
+	.option("--unchanged", "Run all workspace has unchanged dir")
+	.option("--filter", "Use package name match")
+	.option("--unmatched", "Use package name unmatched")
+	.description(
+		"Run all workspace set github secret, options: --all, --changed, --unchanged, --filter, --unmatched",
+	)
+	.action(async (key, value, options) => {
+		const dirs = await filterDirsByOptions(await allDirs(), options);
+		setSecret(dirs, key, value);
 	});
 
 program
 	.command("pr <event> <matchTitle>")
-	.description("merge pr, like: poly pr squash 'chore(main): release'")
-	.action(async (event, matchTitle) => {
-		pr(await allDirs(), event, matchTitle);
+	.option("--all", "Run all workspace")
+	.option("--changed", "Run all workspace has uncommitted dir")
+	.option("--unchanged", "Run all workspace has unchanged dir")
+	.option("--filter", "Use package name match")
+	.option("--unmatched", "Use package name unmatched")
+	.description(
+		"merge pr, like: poly pr squash 'chore(main): release', options: --all, --changed, --unchanged, --filter, --unmatched",
+	)
+	.action(async (event, matchTitle, options) => {
+		const dirs = await filterDirsByOptions(await allDirs(), options);
+		pr(dirs, event, matchTitle);
 	});
 
 program
 	.command("update")
+	.option("--all", "Run all workspace")
+	.option("--changed", "Run all workspace has uncommitted dir")
+	.option("--unchanged", "Run all workspace has unchanged dir")
+	.option("--filter", "Use package name match")
+	.option("--unmatched", "Use package name unmatched")
 	.option("--npm", "update all workspace dependencies version by npm")
-	.description("Update all workspace dependencies version")
+	.description(
+		"Update all workspace dependencies version, options: --all, --changed, --unchanged, --filter, --unmatched",
+	)
 	.action(async (options) => {
-		updateDependencies(await allDirs(), options.npm || false);
+		const dirs = await filterDirsByOptions(await allDirs(), options);
+		updateDependencies(dirs, options.npm || false);
 	});
 
 program
@@ -86,9 +93,17 @@ program
 
 program
 	.command("prettier-package")
-	.description("prettier your package.json")
-	.action(async () => {
-		prettierPackage(await allDirs());
+	.option("--all", "Run all workspace")
+	.option("--changed", "Run all workspace has uncommitted dir")
+	.option("--unchanged", "Run all workspace has unchanged dir")
+	.option("--filter", "Use package name match")
+	.option("--unmatched", "Use package name unmatched")
+	.description(
+		"prettier your package.json, options: --all, --changed, --unchanged, --filter, --unmatched",
+	)
+	.action(async (options) => {
+		const dirs = await filterDirsByOptions(await allDirs(), options);
+		prettierPackage(dirs);
 	});
 
 program.parse(process.argv);
