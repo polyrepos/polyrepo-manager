@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.3](https://github.com/polyrepos/polyrepo-manager/compare/v1.2.2...v1.2.3) (2024-07-10)
+
+
+### Bug Fixes
+
+* deep merge no cover ([a60dec1](https://github.com/polyrepos/polyrepo-manager/commit/a60dec1976ca4351538817aeebc61a0f8edef065))
+
 ## [1.2.2](https://github.com/polyrepos/polyrepo-manager/compare/v1.2.1...v1.2.2) (2024-07-10)
 
 
