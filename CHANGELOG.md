@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.4](https://github.com/polyrepos/polyrepo-manager/compare/v1.2.3...v1.2.4) (2024-07-10)
+
+
+### Bug Fixes
+
+* filter name error ([69fc762](https://github.com/polyrepos/polyrepo-manager/commit/69fc762183ff2ddbe76911c2cc0494913d8014d1))
+
 ## [1.2.3](https://github.com/polyrepos/polyrepo-manager/compare/v1.2.2...v1.2.3) (2024-07-10)
 
 
