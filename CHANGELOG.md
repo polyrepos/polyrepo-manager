@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/polyrepos/polyrepo-manager/compare/v1.2.1...v1.2.2) (2024-07-10)
+
+
+### Bug Fixes
+
+* compatible https and .git ([26126c6](https://github.com/polyrepos/polyrepo-manager/commit/26126c6a46216d4ad441adacb9303afe96a1a505))
+
 ## [1.2.1](https://github.com/polyrepos/polyrepo-manager/compare/v1.2.0...v1.2.1) (2024-07-08)
 
 
