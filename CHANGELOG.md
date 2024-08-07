@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.0](https://github.com/polyrepos/polyrepo-manager/compare/v1.2.5...v1.3.0) (2024-08-07)
+
+
+### Features
+
+* test feat use major ([#17](https://github.com/polyrepos/polyrepo-manager/issues/17)) ([c00a4f6](https://github.com/polyrepos/polyrepo-manager/commit/c00a4f687e165ffb99321cbec0dc4e197db32e75))
+
+
+### Bug Fixes
+
+* bump use major ([#15](https://github.com/polyrepos/polyrepo-manager/issues/15)) ([8038178](https://github.com/polyrepos/polyrepo-manager/commit/8038178ffe1c5662885eace31702cec7c8aae785))
+
 ## [1.2.5](https://github.com/polyrepos/polyrepo-manager/compare/v1.2.4...v1.2.5) (2024-07-10)
 
 
