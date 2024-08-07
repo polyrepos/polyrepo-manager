@@ -1,6 +1,6 @@
 {
   "name": "@polyrepo/polyrepo-manager",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Scripts for managing polyrepo projects",
   "private": false,
   "main": "./dist/index.cjs",
